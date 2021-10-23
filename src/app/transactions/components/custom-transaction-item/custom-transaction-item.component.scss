@@ -1,0 +1,27 @@
+app-transaction-item {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  height: 80px;
+
+  & > div:nth-child(1) {
+    width: 5px;
+    height: 100%;
+  }
+
+  & > div:nth-child(2) {
+    font-size: 0.9rem;
+    padding: 0 2rem 0 0.5rem;
+  }
+
+  ::ng-deep .merchant-details {
+    margin-right: auto;
+    text-align: left;
+    font-size: 1.15rem;
+
+    & > div:nth-child(2) {
+      color: gray;
+      font-size: 0.9rem;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <app-transaction-item>
-  <div data-test-hook="transactionColour" [style.background-color]="transactionData.categoryCode"></div>
+  <div data-test-hook="transactionColour" [style.background-color]="transactionDetails.categoryCode"></div>
   <div data-test-hook="transactionDate">{{transactionDate | date:'MMM. d'}}</div>
   <div data-test-hook="transactionMerchantName">{{merchant.name}}</div>
   <div data-test-hook="transactionType">{{transaction.type}}</div>

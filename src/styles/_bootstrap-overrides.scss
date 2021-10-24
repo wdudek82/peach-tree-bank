@@ -1,3 +1,27 @@
+$theme-colors: (
+  "primary": #ff7300,
+  "secondary": #667,
+  "success": #72d6c9,
+  "info": #00aedb,
+  "warning": #df7599,
+  "danger": #ffc785,
+  "purple": #b19cd9,
+);
+
+$custom-primary: theme-color("primary");
+
+@function theme-color($key: "primary") {
+  @return map-get($theme-colors, $key);
+}
+
+.btn-primary {
+  @include button-variant($custom-primary, darken($custom-primary, 7.5%), darken($custom-primary, 10%), lighten($custom-primary, 5%), lighten($custom-primary, 10%), darken($custom-primary, 30%));
+}
+
+.btn-outline-primary {
+  @include button-outline-variant($custom-primary, #222222, lighten($custom-primary, 5%), $custom-primary);
+}
+
 .navbar-light .navbar-text {
   color: $primary-blue;
 }
@@ -22,5 +46,13 @@
   & > i {
     font-weight: bold;
     margin-right: 1rem;
+  }
+}
+
+.form-control {
+  font-style: italic;
+
+  &[disabled] {
+    font-style: initial;
   }
 }

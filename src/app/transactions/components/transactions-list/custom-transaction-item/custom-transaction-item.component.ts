@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Merchant, Transaction, TransactionData} from "../../../models/transaction-data";
+import {Merchant, Transaction, TransactionDetails} from "../../../models/transaction-data";
 
 @Component({
   selector: 'app-custom-transaction-item',
@@ -7,18 +7,18 @@ import {Merchant, Transaction, TransactionData} from "../../../models/transactio
   styleUrls: ['./custom-transaction-item.component.scss']
 })
 export class CustomTransactionItemComponent {
-  @Input() transactionData!: TransactionData;
+  @Input() transactionDetails!: TransactionDetails;
 
   get merchant(): Merchant {
-    return this.transactionData.merchant;
+    return this.transactionDetails.merchant;
   }
 
   get transaction(): Transaction {
-    return this.transactionData.transaction;
+    return this.transactionDetails.transaction;
   }
 
   get transactionDate(): Date {
-    return new Date(this.transactionData.dates.valueDate);
+    return new Date(this.transactionDetails.dates.valueDate);
   }
 
   getAmountCurrencyStyles(): any {

@@ -1,0 +1,20 @@
+<label *ngIf="label" [for]="formControlName">{{label}}</label>
+<div class="input-group mb-3">
+  <div *ngIf="isCurrency" class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon3"><i class="bi bi-currency-euro"></i></span>
+  </div>
+  <input
+    [id]="formControlName"
+    class="form-control"
+    [type]="type"
+    [class.is-invalid]="formControl.errors && (formControl.dirty || formControl.touched)"
+    [placeholder]="placeholder"
+    [formControl]="formControl"
+    [formControlName]="formControlName"
+  >
+  <div
+    *ngIf="formControl.errors && (formControl.dirty || formControl.touched)"
+    class="invalid-feedback">
+    <ng-content></ng-content>
+  </div>
+</div>

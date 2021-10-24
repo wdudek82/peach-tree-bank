@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left"><span class="font-weight-bold">Review</span> Transfer</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p class="font-italic">Are you ready to send out this transfer?</p>
+  <p class="font-weight-bold">It will be send to account:</p>
+  <p>{{accountName}}</p>
+  <p class="font-weight-bold">With the amount of:</p>
+  <p><i class="bi bi-currency-euro"></i>{{amount}}</p>
+</div>
+<div class="modal-footer">
+<!--  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>-->
+  <button type="button" class="btn btn-default" (click)="decline()">Close</button>
+  <button type="button" class="btn btn-primary" (click)="confirm()">Send Transfer</button>
+</div>

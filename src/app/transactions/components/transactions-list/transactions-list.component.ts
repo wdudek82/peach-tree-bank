@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TransactionsService} from "../../services/transactions.service";
 import {Observable} from "rxjs";
-import {TransactionData} from "../../models/transaction-data";
+import {TransactionDetails} from "../../models/transaction-data";
 import {map} from "rxjs/operators";
 
 @Component({
@@ -10,22 +10,19 @@ import {map} from "rxjs/operators";
   styleUrls: ['./transactions-list.component.scss']
 })
 export class TransactionsListComponent implements OnInit {
-  transactionsDataList$!: Observable<TransactionData[]>;
+  transactionsDetailsList$!: Observable<TransactionDetails[]>;
 
   constructor(private transactionsService: TransactionsService) { }
 
   ngOnInit(): void {
-    this.transactionsDataList$ = this.transactionsService.transactionsDataList$;
-  }
-
-  addDummyTransaction(): void {
-    this.transactionsService.addTransaction();
+    this.transactionsDetailsList$ = this.transactionsService.transactionsDetailsList$;
   }
 
   onInputChange($event: string): void {
-    this.transactionsDataList$ = this.transactionsService.transactionsDataList$.pipe(
+    this.transactionsDetailsList$ = this.transactionsService.transactionsDetailsList$.pipe(
       map((data) => {
-        return data.filter((d) => d.merchant.name.includes($event));
+        const searched = $event.trim().toLowerCase();
+        return data.filter((d) => d.merchant.name.toLowerCase().includes(searched));
       }),
     );
   }

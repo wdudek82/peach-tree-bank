@@ -18,9 +18,30 @@ export interface Merchant {
   accountNumber: string;
 }
 
-export interface TransactionData {
+export class TransactionDetails {
   categoryCode: string;
   dates: Dates;
   transaction: Transaction;
   merchant: Merchant;
+
+  constructor(targetAccountName: string, amount: number) {
+    this.categoryCode = '#c12020';
+    this.dates = {
+      valueDate: new Date().getTime(),
+    };
+
+    const amountCurrency: AmountCurrency = {
+      amount,
+      currencyCode: 'EUR'
+    };
+    this.transaction = {
+      amountCurrency,
+      type: 'Online Transfer',
+      creditDebitIndicator: 'DBIT'
+    };
+    this.merchant = {
+      name: targetAccountName,
+      accountNumber: 'SI0000000000000'
+    }
+  }
 }

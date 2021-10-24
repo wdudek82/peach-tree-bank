@@ -18,10 +18,6 @@ export class TransactionsListComponent implements OnInit {
     this.transactionsDataList$ = this.transactionsService.transactionsDataList$;
   }
 
-  addDummyTransaction(): void {
-    this.transactionsService.addTransaction();
-  }
-
   onInputChange($event: string): void {
     this.transactionsDataList$ = this.transactionsService.transactionsDataList$.pipe(
       map((data) => {

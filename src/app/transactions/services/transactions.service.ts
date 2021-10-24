@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {catchError, map, tap} from "rxjs/operators";
 import {BehaviorSubject, Observable} from "rxjs";
 import {TransactionData} from "../models/transaction-data";
+import {AccountService} from "./account.service";
 
 export interface TransactionResponse {
   data: TransactionData[];
@@ -16,34 +17,34 @@ export class TransactionsService {
   private transactionDataListSource = new BehaviorSubject<TransactionData[]>([]);
   transactionsDataList$ = this.transactionDataListSource.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private accountService: AccountService) {
     this.fetchTransactionData().subscribe();
   }
 
   // TODO: Remove/modify when User-story-#3 is finished.
-  addTransaction(): void {
+  addTransaction(targetAccountName: string, amount: number): void {
     // 1. add new transaction to last value of the transactionsData subject,
     // 3. new transactionsDataList, containing the new transaction, will be emitted
-    const dummyTransactionData = {
-      "categoryCode": "#12a580",
-      "dates": {
-        "valueDate": new Date().getTime(),
+    const newTransactionData: TransactionData = {
+      categoryCode: '#c12020',
+      dates: {
+        valueDate: new Date().getTime(),
       },
-      "transaction": {
-        "amountCurrency": {
-          "amount": 5000,
-          "currencyCode": "EUR"
+      transaction: {
+        amountCurrency: {
+          amount,
+          currencyCode: 'EUR'
         },
-        "type": "Salaries",
-        "creditDebitIndicator": "CRDT"
+        type: 'Online Transfer',
+        creditDebitIndicator: 'DBIT'
       },
-      "merchant": {
-        "name": "Backbase",
-        accountNumber: "SI64397745065188826"
+      merchant: {
+        name: targetAccountName,
+        accountNumber: 'SI0000000000000'
       }
     }
     const updatedTransactionsData = [
-      dummyTransactionData,
+      newTransactionData,
       ...this.transactionDataListSource.value
     ];
     this.transactionDataListSource.next(updatedTransactionsData)

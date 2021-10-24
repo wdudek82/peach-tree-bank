@@ -1,13 +1,8 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, EventEmitter, ViewChild} from '@angular/core';
 import {AccountService} from "../../services/account.service";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {ReviewTransferModalComponent} from "../review-transfer-modal/review-transfer-modal.component";
 import {TransactionsService} from "../../services/transactions.service";
-
-interface FormErrors {
-  targetAccountName: string;
-  amount: string;
-}
 
 @Component({
   selector: 'app-add-transaction-form',
@@ -19,7 +14,7 @@ export class AddTransactionFormComponent {
   formModel = {
     ownAccountName: '',
     targetAccountName: '',
-    amount: 0,
+    amount: '',
   };
   bsModalRef?: BsModalRef;
 
@@ -51,6 +46,14 @@ export class AddTransactionFormComponent {
     this.accountService.accountBalance -= 200;
   }
 
+  get targetAccountName(): string {
+    return this.form.controls.targetAccountName.value;
+  }
+
+  get amount(): number {
+    return this.form.controls.amount.value;
+  }
+
   onSubmitForm(): void {
     // TODO: do not open modal if form is invalid
     // targetAccountName:
@@ -61,23 +64,26 @@ export class AddTransactionFormComponent {
     //  - can't decrease the balance below 500 EUR
     console.log(this.form.isValid);
     console.log(this.form.controls.amount);
-    this.openModalWithComponent()
+
+    if (this.form.invalid) return;
+    this.openModalWithComponent()?.subscribe(() => {
+      const isTransferApproved =  this.bsModalRef?.content.shouldSubmit;
+      if (isTransferApproved) {
+        this.transactionsService.addTransaction(this.targetAccountName, this.amount);
+        // TODO: reset form
+      }
+    });
   }
 
-  openModalWithComponent() {
-    const initialState: ModalOptions = {
+  openModalWithComponent(): EventEmitter<unknown> | undefined {
+    const config: ModalOptions = {
       initialState: {
-        accountName: 'Backbase',
-        amount: 5000,
+        accountName: this.form.controls.targetAccountName.value,
+        amount: this.form.controls.amount.value,
         shouldSubmit: false,
       }
     };
-    this.bsModalRef = this.modalService.show(ReviewTransferModalComponent, initialState);
-    this.bsModalRef.onHidden?.subscribe((value) => {
-      console.log('closed:', this.bsModalRef?.content.shouldSubmit);
-      if (this.bsModalRef?.content.shouldSubmit) {
-        this.transactionsService.addTransaction();
-      }
-    });
+    this.bsModalRef = this.modalService.show(ReviewTransferModalComponent, config);
+    return this.bsModalRef.onHidden;
   }
 }

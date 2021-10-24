@@ -5,6 +5,7 @@ import {CoreModule} from "./core/core.module";
 import {BbUIModule} from "./bb-ui/bb-ui.module";
 import {UiModule} from "./ui/ui.module";
 import {TransactionsModule} from "./transactions/transactions.module";
+import {ModalModule} from "ngx-bootstrap/modal";
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import {TransactionsModule} from "./transactions/transactions.module";
   imports: [
     CoreModule,
     BrowserAnimationsModule,
+    ModalModule.forRoot(),
     BbUIModule,
     UiModule,
     TransactionsModule,

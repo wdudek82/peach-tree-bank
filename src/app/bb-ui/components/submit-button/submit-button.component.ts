@@ -11,5 +11,4 @@ export class SubmitButtonComponent {
   triggerSubmit(event: Event): void {
     this.submitForm.emit(event);
   }
-
 }

@@ -27,7 +27,7 @@ export class AddTransactionFormComponent {
     private fb: FormBuilder,
   ) {
     this.transactionForm = this.fb.group({
-      ownAccountDetails: [{value: this.ownAccountDetails, disabled: true}],
+      ownAccountDetails: [{value: this.getOwnAccountDetails(), disabled: true}],
       targetAccountName: ['', Validators.required],
       amount: [null, [
         Validators.required,
@@ -37,13 +37,13 @@ export class AddTransactionFormComponent {
     });
   }
 
-  get ownAccountDetails(): string {
-    const {accountName, accountBalance, accountCurrency} = this.accountService;
-    return accountName + ': ' + accountCurrency + ' ' + accountBalance.toFixed(2);
-  }
 
   get ownAccountBalance(): number {
     return this.accountService.accountBalance;
+  }
+
+  get ownAccountDetails(): FormControl {
+    return this.transactionForm.get('ownAccountDetails') as FormControl;
   }
 
   get targetAccountName(): FormControl {
@@ -54,18 +54,13 @@ export class AddTransactionFormComponent {
     return this.transactionForm.get('amount') as FormControl;
   }
 
-  onSubmitForm(): void {
-    // TODO: do not open modal if form is invalid
-    // targetAccountName:
-    //  - required
-    // amountL
-    //  + required
-    //  + positive number (floats are allowed)
-    //  - can't decrease the balance below 500 EUR
-    this.triggerFormFieldsValidation();
+  getOwnAccountDetails(): string {
+    const {accountName, accountBalance, accountCurrency} = this.accountService;
+    return accountName + ': ' + accountCurrency + ' ' + accountBalance.toFixed(2);
+  }
 
-    console.log(this.transactionForm.valid);
-    console.log(this.transactionForm.controls.amount);
+  onSubmitForm(): void {
+    this.triggerFormFieldsValidation();
 
     if (!this.transactionForm.valid) return;
     this.openModalWithComponent()?.subscribe(() => {
@@ -84,7 +79,7 @@ export class AddTransactionFormComponent {
 
   resetForm(): void {
     this.transactionForm.reset({
-      ownAccountDetails: this.ownAccountDetails,
+      ownAccountDetails: this.getOwnAccountDetails(),
     });
   }
 

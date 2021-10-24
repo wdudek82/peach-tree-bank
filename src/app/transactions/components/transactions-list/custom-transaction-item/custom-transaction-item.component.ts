@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Merchant, Transaction, TransactionData} from "../../services/transactions.service";
+import {Merchant, Transaction, TransactionData} from "../../../models/transaction-data";
 
 @Component({
   selector: 'app-custom-transaction-item',

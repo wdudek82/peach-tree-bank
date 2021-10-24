@@ -5,10 +5,10 @@
   <div class="card-body d-flex flex-column">
     <app-filter (inputChange)="onInputChange($event)"></app-filter>
     <div class="transactions-list flex-grow-1">
-      <ng-container *ngIf="transactionsDataList$ | async as transactionsDataList">
+      <ng-container *ngIf="transactionsDetailsList$ | async as transactionsDetailsList">
         <app-custom-transaction-item
-          *ngFor="let transactionData of transactionsDataList"
-          [transactionData]="transactionData"
+          *ngFor="let transactionDetails of transactionsDetailsList"
+          [transactionDetails]="transactionDetails"
         ></app-custom-transaction-item>
       </ng-container>
     </div>

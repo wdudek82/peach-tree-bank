@@ -3,17 +3,15 @@
     <i class="lni lni-credit-cards"></i><span class="font-weight-bold">Make</span> Transfer
   </h5>
   <div class="card-body">
-    <form #form="ngForm">
+    <form [formGroup]="transactionForm">
       <div class="form-group">
         <label for="own-account-name">From Account</label>
         <div class="input-group mb-3">
           <input
             id="own-account-name"
-            type="text"
             class="form-control"
-            [value]="ownAccountDetails"
-            name="own-account-name"
-            [disabled]="true"
+            type="text"
+            formControlName="ownAccountDetails"
             aria-describedby="basic-addon1"
           >
           <div class="invalid-feedback">
@@ -25,14 +23,11 @@
           <div class="input-group mb-3">
             <input
               id="target-account-name"
-              type="text"
               class="form-control"
+              type="text"
               [class.is-invalid]="targetAccountName.errors && (targetAccountName.dirty || targetAccountName.touched)"
               placeholder="type an account name"
-              [(ngModel)]="formModel.targetAccountName"
-              name="targetAccountName"
-              #targetAccountName="ngModel"
-              required
+              formControlName="targetAccountName"
               aria-label="type an account name"
               aria-describedby="basic-addon2"
             >
@@ -52,14 +47,11 @@
           </div>
           <input
             id="amount"
-            type="text"
             class="form-control"
+            type="number"
             [class.is-invalid]="amount.errors && (amount.dirty || amount.touched)"
             placeholder="specify the amount"
-            [(ngModel)]="formModel.amount"
-            name="amount"
-            #amount="ngModel"
-            required
+            formControlName="amount"
             aria-label="specify the amount"
             aria-describedby="basic-addon3"
           >
@@ -67,17 +59,14 @@
             *ngIf="amount.errors && (amount.dirty || amount.touched)"
             class="invalid-feedback">
             <span *ngIf="amount.errors.required">There is not enough balance</span>
+            <span *ngIf="amount.errors.min">The amount must be greater than 0</span>
+            <span *ngIf="amount.errors.overdraft">Account limit exceeded by {{amount.errors.overdraft.value}}</span>
           </div>
         </div>
       </div>
     </form>
-
     <div class="text-right">
       <app-submit-button (submitForm)="onSubmitForm()"></app-submit-button>
     </div>
   </div>
 </div>
-
-{{form.value | json}}
-{{form.errors | json}}
-{{targetAccountName.touched | json}}

@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, tap} from "rxjs/operators";
 import {BehaviorSubject, Observable} from "rxjs";
-import {TransactionData} from "../models/transaction-data";
+import {TransactionDetails} from "../models/transaction-data";
 import {AccountService} from "./account.service";
 
 export interface TransactionResponse {
-  data: TransactionData[];
+  data: TransactionDetails[];
 }
 
 @Injectable({
@@ -14,43 +14,27 @@ export interface TransactionResponse {
 })
 export class TransactionsService {
   private baseUrl = 'https://r9vdzv10vd.execute-api.eu-central-1.amazonaws.com/dev';
-  private transactionDataListSource = new BehaviorSubject<TransactionData[]>([]);
-  transactionsDataList$ = this.transactionDataListSource.asObservable();
+  private transactionDetailsListSource = new BehaviorSubject<TransactionDetails[]>([]);
+  transactionsDetailsList$ = this.transactionDetailsListSource.asObservable();
 
   constructor(private http: HttpClient, private accountService: AccountService) {
-    this.fetchTransactionData().subscribe();
+    this.fetchAllTransactionsDetails().subscribe();
   }
 
-  // TODO: Remove/modify when User-story-#3 is finished.
   addTransaction(targetAccountName: string, amount: number): void {
     // 1. add new transaction to last value of the transactionsData subject,
-    // 3. new transactionsDataList, containing the new transaction, will be emitted
-    const newTransactionData: TransactionData = {
-      categoryCode: '#c12020',
-      dates: {
-        valueDate: new Date().getTime(),
-      },
-      transaction: {
-        amountCurrency: {
-          amount,
-          currencyCode: 'EUR'
-        },
-        type: 'Online Transfer',
-        creditDebitIndicator: 'DBIT'
-      },
-      merchant: {
-        name: targetAccountName,
-        accountNumber: 'SI0000000000000'
-      }
-    }
+    // 2. new transactionsDataList, containing the new transaction, will be emitted
+    // 3. the transaction amount will be subtracted from the account balance
+    const transactionDetails: TransactionDetails = new TransactionDetails(targetAccountName, amount);
     const updatedTransactionsData = [
-      newTransactionData,
-      ...this.transactionDataListSource.value
+      transactionDetails,
+      ...this.transactionDetailsListSource.value,
     ];
-    this.transactionDataListSource.next(updatedTransactionsData)
+    this.transactionDetailsListSource.next(updatedTransactionsData);
+    this.accountService.accountBalance -= amount;
   }
 
-  private fetchTransactionData(): Observable<TransactionData[]> {
+  private fetchAllTransactionsDetails(): Observable<TransactionDetails[]> {
     return this.http.get<TransactionResponse>(this.baseUrl + '/transactions').pipe(
       tap((data) => {
         console.log('data:', data);
@@ -62,7 +46,7 @@ export class TransactionsService {
       map(({data}) => {
         const transactionsData = data;
         transactionsData.sort((a, b) => (a.dates.valueDate < b.dates.valueDate) ? 1 : -1);
-        this.transactionDataListSource.next(transactionsData)
+        this.transactionDetailsListSource.next(transactionsData)
         return transactionsData;
       }),
     );

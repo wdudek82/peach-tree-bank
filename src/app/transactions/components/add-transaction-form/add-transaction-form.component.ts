@@ -25,25 +25,9 @@ export class AddTransactionFormComponent {
   ) {
   }
 
-  get accountName(): string {
-    return this.accountService.accountName;
-  }
-
-  get accountBalance(): number {
-    return this.accountService.accountBalance;
-  }
-
-  get accountCurrency(): string {
-    return this.accountService.accountCurrency;
-  }
-
   get ownAccountDetails(): string {
     const {accountName, accountBalance, accountCurrency} = this.accountService;
     return accountName + ': ' + accountCurrency + ' ' + accountBalance;
-  }
-
-  subtractFromBalance(): void {
-    this.accountService.accountBalance -= 200;
   }
 
   get targetAccountName(): string {

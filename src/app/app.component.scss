@@ -22,3 +22,10 @@ main {
   left: 50%;
   transform: translate(-50%, 0%);
 }
+
+::ng-deep app-footer {
+  background-color: #fff;
+  padding: 0.6rem;
+  position: fixed;
+  bottom: 0;
+}

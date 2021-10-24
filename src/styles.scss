@@ -10,34 +10,3 @@
 @import "https://cdn.lineicons.com/3.0/lineicons.css";
 
 @import "styles/main";
-
-.primary-blue {
-  color: $primary-blue;
-}
-
-.navbar-light .navbar-text {
-  color: $primary-blue;
-}
-
-.card {
-  border: none;
-  -moz-border-radius-topleft: 1rem;
-  border-top-left-radius: 1rem;
-  -moz-border-radius-topright: 1rem;
-  border-top-right-radius: 1rem;
-}
-
-.card-header {
-  border-color: $primary-blue;
-  background-color: $primary-blue;
-  line-height: 1.8;
-
-  &:first-child {
-    border-radius: 1rem 1rem 0 0;
-  }
-
-  & > i {
-    font-weight: bold;
-    margin-right: 1rem;
-  }
-}

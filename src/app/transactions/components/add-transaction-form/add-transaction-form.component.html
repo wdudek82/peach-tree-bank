@@ -4,6 +4,7 @@
   </h5>
   <div class="card-body">
     <form [formGroup]="transactionForm">
+      <!-- TODO: create form component to make it more DRY -->
       <div class="form-group">
         <label for="own-account-name">From Account</label>
         <div class="input-group mb-3">
@@ -70,3 +71,5 @@
     </div>
   </div>
 </div>
+
+<!--<ng-content select="[data-test-hook='transactionColour']"></ng-content>-->

@@ -25,7 +25,7 @@ export class TransactionsService {
     // 1. add new transaction to last value of the transactionsData subject,
     // 2. new transactionsDataList, containing the new transaction, will be emitted
     // 3. the transaction amount will be subtracted from the account balance
-    const transactionDetails: TransactionDetails = new TransactionDetails(targetAccountName, amount);
+    const transactionDetails = new TransactionDetails(targetAccountName, amount);
     const updatedTransactionsData = [
       transactionDetails,
       ...this.transactionDetailsListSource.value,

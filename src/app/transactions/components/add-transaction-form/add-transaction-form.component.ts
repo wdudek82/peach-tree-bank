@@ -1,26 +1,15 @@
-import {Component, EventEmitter, ViewChild} from '@angular/core';
+import {Component, EventEmitter} from '@angular/core';
 import {AccountService} from "../../services/account.service";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {ReviewTransferModalComponent} from "../review-transfer-modal/review-transfer-modal.component";
 import {TransactionsService} from "../../services/transactions.service";
 import {
-  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
-  ValidationErrors,
-  ValidatorFn,
   Validators
 } from "@angular/forms";
-
-export function overdraftValidator(amount: number, debitLimit: number = -500): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const isOverdraft = (amount - control.value) < debitLimit;
-    const overdraftAmount = control.value  + debitLimit - amount;
-    console.log('overdraft:', isOverdraft);
-    return isOverdraft ? {overdraft: {value: overdraftAmount.toFixed(2)}} : null;
-  };
-}
+import {overdraftValidator} from "../../validators";
 
 @Component({
   selector: 'app-add-transaction-form',

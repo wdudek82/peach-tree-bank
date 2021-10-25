@@ -9,7 +9,7 @@ import {
   FormGroup,
   Validators
 } from "@angular/forms";
-import {overdraftValidator} from "../../validators";
+import {overdraftValidator} from "../../validators/overdraft.validator";
 
 @Component({
   selector: 'app-add-transaction-form',
@@ -31,15 +31,10 @@ export class AddTransactionFormComponent {
       targetAccountName: ['', Validators.required],
       amount: [null, [
         Validators.required,
-        Validators.min(1),
-        overdraftValidator(this.ownAccountBalance),
+        Validators.min(0.01),
+        overdraftValidator(this.accountService.account, 'balance'),
       ]],
     });
-  }
-
-
-  get ownAccountBalance(): number {
-    return this.accountService.accountBalance;
   }
 
   get ownAccountDetails(): FormControl {
@@ -55,8 +50,8 @@ export class AddTransactionFormComponent {
   }
 
   getOwnAccountDetails(): string {
-    const {accountName, accountBalance, accountCurrency} = this.accountService;
-    return accountName + ': ' + accountCurrency + ' ' + accountBalance.toFixed(2);
+    const {name, balance, currency} = this.accountService.account;
+    return name + ': ' + currency + ' ' + balance.toFixed(2);
   }
 
   onSubmitForm(): void {

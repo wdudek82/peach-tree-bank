@@ -31,7 +31,7 @@ export class TransactionsService {
       ...this.transactionDetailsListSource.value,
     ];
     this.transactionDetailsListSource.next(updatedTransactionsData);
-    this.accountService.accountBalance -= amount;
+    this.accountService.account.balance -= amount;
   }
 
   private fetchAllTransactionsDetails(): Observable<TransactionDetails[]> {

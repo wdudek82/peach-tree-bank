@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TopbarComponent } from './topbar.component';
+import {TopbarComponent} from './topbar.component';
+import {LogoComponent} from "../../../bb-ui/components/logo/logo.component";
 
 describe('TopbarComponent', () => {
   let component: TopbarComponent;
@@ -8,9 +9,9 @@ describe('TopbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TopbarComponent ]
+      declarations: [TopbarComponent, TopbarComponent, LogoComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

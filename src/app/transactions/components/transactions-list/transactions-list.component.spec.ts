@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {TransactionsListComponent} from './transactions-list.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {FilterComponent} from "../../../bb-ui/components/filter/filter.component";
 
 describe('TransactionsListComponent', () => {
   let component: TransactionsListComponent;
@@ -9,7 +10,7 @@ describe('TransactionsListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      declarations: [TransactionsListComponent],
+      declarations: [TransactionsListComponent, FilterComponent],
     })
       .compileComponents();
   });

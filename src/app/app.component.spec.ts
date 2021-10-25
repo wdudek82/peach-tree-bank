@@ -46,7 +46,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    console.log('fixture:', compiled);
+    // TODO: Do we need this check?
     expect(compiled.querySelector('.content span')?.textContent).toContain('peachtree-bank app is running!');
   });
 });

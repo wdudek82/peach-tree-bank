@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CustomTransactionItemComponent } from './custom-transaction-item.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {CustomTransactionItemComponent} from './custom-transaction-item.component';
 import {TransactionDetails} from "../../../models/transaction-data";
+import {TransactionItemComponent} from "../../../../bb-ui/components/transaction-item/transaction-item.component";
 
 describe('CustomTransactionItemComponent', () => {
   let component: CustomTransactionItemComponent;
@@ -8,9 +9,9 @@ describe('CustomTransactionItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustomTransactionItemComponent ]
+      declarations: [CustomTransactionItemComponent, TransactionItemComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

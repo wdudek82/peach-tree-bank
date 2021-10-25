@@ -2,21 +2,24 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AddTransactionFormComponent} from './add-transaction-form.component';
 import {TransactionsService} from "../../services/transactions.service";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {BsModalService} from "ngx-bootstrap/modal";
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SubmitButtonComponent} from "../../../bb-ui/components/submit-button/submit-button.component";
 import {findByCss} from "../../../../spec-utils";
+import {DebugElement} from "@angular/core";
+import {ReviewTransferModalComponent} from "../review-transfer-modal/review-transfer-modal.component";
 
 describe('AddTransactionFormComponent', () => {
   let component: AddTransactionFormComponent;
   let fixture: ComponentFixture<AddTransactionFormComponent>;
+  let debugEl: DebugElement;
   const MAX_OVERDRAFT = 500;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, ReactiveFormsModule],
-      declarations: [AddTransactionFormComponent, SubmitButtonComponent],
-      providers: [TransactionsService, BsModalService],
+      declarations: [AddTransactionFormComponent, SubmitButtonComponent, ReviewTransferModalComponent],
+      providers: [TransactionsService, BsModalService, BsModalRef],
     })
       .compileComponents();
   });
@@ -24,6 +27,7 @@ describe('AddTransactionFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddTransactionFormComponent);
     component = fixture.componentInstance;
+    debugEl = fixture.debugElement;
     fixture.detectChanges();
   });
 
@@ -75,8 +79,4 @@ describe('AddTransactionFormComponent', () => {
       expect(amountControl.getError('overdraft')).toEqual({value: exceededOverdraft});
     });
   })
-
-  it('opens review transaction modal on form submit', () => {
-    pending();
-  });
 });

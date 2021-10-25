@@ -1,0 +1,16 @@
+<div class="form-group">
+  <label *ngIf="label" [id]="id">{{label}}</label>
+  <div class="input-group mb-3">
+    <input
+      class="form-control"
+      type="text"
+      [value]="value"
+      [placeholder]="placeholder"
+      (keyup)="onKeyup($event)"
+      (blur)="onBlur()"
+    >
+  </div>
+  <div *ngIf="hasError()" class="invalid-feedback">
+    <span>{{control.errors?.[errorKey]}}</span>
+  </div>
+</div>

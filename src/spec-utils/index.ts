@@ -11,7 +11,16 @@ export function findByCss<T>(
   );
 }
 
-function findEl<T>(
+export function findByDirective<T>(
+  fixture: ComponentFixture<T>,
+  selector: any,
+): DebugElement {
+  return fixture.debugElement.query(
+    By.directive(selector)
+  );
+}
+
+export function findEl<T>(
   fixture: ComponentFixture<T>,
   testId: string
 ): DebugElement {

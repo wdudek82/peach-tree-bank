@@ -78,6 +78,10 @@ export class AddTransactionFormComponent {
     });
   }
 
+  hasErrors(control: FormControl): boolean {
+    return (control.errors && (control.dirty || control.touched)) ?? false;
+  }
+
   openModalWithComponent(): EventEmitter<unknown> | undefined {
     const config: ModalOptions = {
       initialState: {

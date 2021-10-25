@@ -26,7 +26,11 @@ export class AddTransactionFormComponent {
     private modalService: BsModalService,
     private fb: FormBuilder,
   ) {
-    this.transactionForm = this.fb.group({
+    this.transactionForm = this.createForm();
+  }
+
+  createForm(): FormGroup {
+    return this.fb.group({
       ownAccountDetails: [{value: this.getOwnAccountDetails(), disabled: true}],
       targetAccountName: ['', Validators.required],
       amount: [null, [
@@ -37,15 +41,11 @@ export class AddTransactionFormComponent {
     });
   }
 
-  get ownAccountDetails(): FormControl {
-    return this.transactionForm.get('ownAccountDetails') as FormControl;
-  }
-
-  get targetAccountName(): FormControl {
+  get targetAccountNameControl(): FormControl {
     return this.transactionForm.get('targetAccountName') as FormControl;
   }
 
-  get amount(): FormControl {
+  get amountControl(): FormControl {
     return this.transactionForm.get('amount') as FormControl;
   }
 
@@ -61,15 +61,15 @@ export class AddTransactionFormComponent {
     this.openModalWithComponent()?.subscribe(() => {
       const isTransferApproved = this.bsModalRef?.content.shouldSubmit;
       if (isTransferApproved) {
-        this.transactionsService.addTransaction(this.targetAccountName.value, this.amount.value);
+        this.transactionsService.addTransaction(this.targetAccountNameControl.value, this.amountControl.value);
         this.resetForm();
       }
     });
   }
 
   triggerFormFieldsValidation(): void {
-    this.targetAccountName.markAsTouched();
-    this.amount.markAsTouched();
+    this.targetAccountNameControl.markAsTouched();
+    this.amountControl.markAsTouched();
   }
 
   resetForm(): void {
@@ -81,8 +81,8 @@ export class AddTransactionFormComponent {
   openModalWithComponent(): EventEmitter<unknown> | undefined {
     const config: ModalOptions = {
       initialState: {
-        accountName: this.targetAccountName.value,
-        amount: this.amount.value,
+        accountName: this.targetAccountNameControl.value,
+        amount: this.amountControl.value,
         shouldSubmit: false,
       }
     };

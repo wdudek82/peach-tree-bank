@@ -2,12 +2,21 @@ import {ComponentFixture} from "@angular/core/testing";
 import {DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
 
+export function findByCss<T>(
+  fixture: ComponentFixture<T>,
+  selector: string
+): DebugElement {
+  return fixture.debugElement.query(
+    By.css(selector)
+  );
+}
+
 function findEl<T>(
   fixture: ComponentFixture<T>,
   testId: string
 ): DebugElement {
   return fixture.debugElement.query(
-    By.css(`[data-testid="${testId}"]`)
+    By.css(`[data-test-hook="${testId}"]`)
   );
 }
 
@@ -35,14 +44,3 @@ export function makeClickEvent(
     button: 0
   };
 }
-
-// export function setFieldValue<T>(
-//   fixture: ComponentFixture<T>,
-//   testId: string,
-//   value: string,
-// ): void {
-//   setFieldElementValue(
-//     findEl(fixture, testId).nativeElement,
-//     value
-//   );
-// }

@@ -32,6 +32,9 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
+    exclude: [
+      './src/app/bb-ui'
+    ],
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,

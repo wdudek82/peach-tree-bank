@@ -9,7 +9,7 @@ export class FilterComponent {
   @Output() inputChange: EventEmitter<any> = new EventEmitter();
 
   onInputChange(event: KeyboardEvent): void {
-    const {value} = (event.target as HTMLInputElement);
+    const value = (event.target as HTMLInputElement)?.value || '';
     this.inputChange.emit(value);
   }
 }

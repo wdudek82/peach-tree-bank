@@ -25,7 +25,7 @@ describe('FilterComponent', () => {
 
   it('should trigger event', () => {
     spyOn(component.inputChange, 'emit');
-    const event = new InputEvent('change');
+    const event = new KeyboardEvent('change');
 
     component.onInputChange(event);
     expect(component.inputChange.emit).toHaveBeenCalled();

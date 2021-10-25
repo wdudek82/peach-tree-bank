@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ReviewTransferModalComponent } from './review-transfer-modal.component';
+import {ReviewTransferModalComponent} from './review-transfer-modal.component';
+import {BsModalRef, ModalModule} from "ngx-bootstrap/modal";
 
 describe('ReviewTransferModalComponent', () => {
   let component: ReviewTransferModalComponent;
@@ -8,9 +9,13 @@ describe('ReviewTransferModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReviewTransferModalComponent ]
+      imports: [ModalModule.forRoot()],
+      declarations: [ReviewTransferModalComponent],
+      providers: [
+        BsModalRef,
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,5 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AddTransactionFormComponent } from './add-transaction-form.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {AddTransactionFormComponent} from './add-transaction-form.component';
+import {TransactionsService} from "../../services/transactions.service";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {BsModalService} from "ngx-bootstrap/modal";
+import {ReactiveFormsModule} from "@angular/forms";
 
 describe('AddTransactionFormComponent', () => {
   let component: AddTransactionFormComponent;
@@ -7,9 +11,11 @@ describe('AddTransactionFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddTransactionFormComponent ]
+      imports: [HttpClientTestingModule, ReactiveFormsModule],
+      declarations: [AddTransactionFormComponent],
+      providers: [TransactionsService, BsModalService],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

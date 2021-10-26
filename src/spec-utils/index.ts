@@ -1,46 +1,42 @@
-import {ComponentFixture} from "@angular/core/testing";
-import {DebugElement} from "@angular/core";
-import {By} from "@angular/platform-browser";
+import { ComponentFixture } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 export function findByCss<T>(
   fixture: ComponentFixture<T>,
-  selector: string
+  selector: string,
 ): DebugElement {
-  return fixture.debugElement.query(
-    By.css(selector)
-  );
+  return fixture.debugElement.query(By.css(selector));
 }
 
 export function findByDirective<T>(
   fixture: ComponentFixture<T>,
   selector: any,
 ): DebugElement {
-  return fixture.debugElement.query(
-    By.directive(selector)
-  );
+  return fixture.debugElement.query(By.directive(selector));
+}
+
+export function findAllByDirective<T>(
+  fixture: ComponentFixture<T>,
+  selector: any,
+): DebugElement[] {
+  return fixture.debugElement.queryAll(By.directive(selector));
 }
 
 export function findEl<T>(
   fixture: ComponentFixture<T>,
-  testId: string
+  testId: string,
 ): DebugElement {
-  return fixture.debugElement.query(
-    By.css(`[data-test-hook="${testId}"]`)
-  );
+  return fixture.debugElement.query(By.css(`[data-test-hook="${testId}"]`));
 }
 
-export function click<T>(
-  fixture: ComponentFixture<T>,
-  testId: string
-): void {
+export function click<T>(fixture: ComponentFixture<T>, testId: string): void {
   const element = findEl(fixture, testId);
   const event = makeClickEvent(element.nativeElement);
   element.triggerEventHandler('click', event);
 }
 
-export function makeClickEvent(
-  target: EventTarget
-): Partial<MouseEvent> {
+export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
   return {
     preventDefault(): void {},
     stopPropagation(): void {},
@@ -50,6 +46,6 @@ export function makeClickEvent(
     currentTarget: target,
     bubbles: true,
     cancelable: true,
-    button: 0
+    button: 0,
   };
 }

@@ -1,11 +1,17 @@
 <div class="card">
   <h5 class="card-header text-white">
-    <i class="lni lni-list"></i>Transactions <span class="font-weight-bold">List</span>
+    <i class="lni lni-list"></i>Transactions
+    <span class="font-weight-bold">List</span>
   </h5>
   <div class="card-body d-flex flex-column">
     <app-filter (inputChange)="onInputChange($event)"></app-filter>
-    <div class="transactions-list flex-grow-1">
-      <ng-container *ngIf="transactionsDetailsList$ | async as transactionsDetailsList">
+    <div
+      class="transactions-list flex-grow-1"
+      data-test-hook="transactions-list"
+    >
+      <ng-container
+        *ngIf="transactionsDetailsList$ | async as transactionsDetailsList"
+      >
         <app-custom-transaction-item
           *ngFor="let transactionDetails of transactionsDetailsList"
           [transactionDetails]="transactionDetails"

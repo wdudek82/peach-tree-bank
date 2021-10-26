@@ -1,6 +1,7 @@
-<div class="card mr-4" style="width: 350px; min-height: 400px; border-radius: 1rem;">
+<div class="card mr-4">
   <h5 class="card-header text-white">
-    <i class="lni lni-credit-cards"></i><span class="font-weight-bold">Make</span> Transfer
+    <i class="lni lni-credit-cards"></i
+    ><span class="font-weight-bold">Make</span> Transfer
   </h5>
   <div class="card-body">
     <form [formGroup]="transactionForm">
@@ -13,7 +14,7 @@
             type="text"
             formControlName="ownAccountDetails"
             aria-describedby="basic-addon1"
-          >
+          />
         </div>
       </div>
       <div>
@@ -29,11 +30,14 @@
               formControlName="targetAccountName"
               aria-label="type an account name"
               aria-describedby="basic-addon2"
-            >
+            />
             <div
               *ngIf="hasErrors(targetAccountNameControl)"
-              class="invalid-feedback">
-              <span *ngIf="targetAccountNameControl.errors?.required">This field is required</span>
+              class="invalid-feedback"
+            >
+              <span *ngIf="targetAccountNameControl.errors?.required"
+                >This field is required</span
+              >
             </div>
           </div>
         </div>
@@ -42,7 +46,9 @@
         <label for="amount">Amount</label>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon3"><i class="bi bi-currency-euro"></i></span>
+            <span class="input-group-text" id="basic-addon3"
+              ><i class="bi bi-currency-euro"></i
+            ></span>
           </div>
           <input
             id="amount"
@@ -53,13 +59,18 @@
             formControlName="amount"
             aria-label="specify the amount"
             aria-describedby="basic-addon3"
-          >
-          <div
-            *ngIf="hasErrors(amountControl)"
-            class="invalid-feedback">
-            <span *ngIf="amountControl.errors?.required">There is not enough balance</span>
-            <span *ngIf="amountControl.errors?.min">The amount must be greater than 0</span>
-            <span *ngIf="amountControl.errors?.overdraft">Account limit exceeded by {{amountControl.errors?.overdraft?.value}}</span>
+          />
+          <div *ngIf="hasErrors(amountControl)" class="invalid-feedback">
+            <span *ngIf="amountControl.errors?.required"
+              >There is not enough balance</span
+            >
+            <span *ngIf="amountControl.errors?.min"
+              >The amount must be greater than 0</span
+            >
+            <span *ngIf="amountControl.errors?.overdraft"
+              >Account limit exceeded by
+              {{ amountControl.errors?.overdraft?.value }}</span
+            >
           </div>
         </div>
       </div>

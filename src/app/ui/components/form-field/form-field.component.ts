@@ -1,5 +1,16 @@
-import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angular/core';
-import {AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 
 type InputType = 'text' | 'number';
 
@@ -12,8 +23,8 @@ type InputType = 'text' | 'number';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => FormFieldComponent),
       multi: true,
-    }
-  ]
+    },
+  ],
 })
 export class FormFieldComponent implements ControlValueAccessor {
   @Input() id!: string;
@@ -24,10 +35,8 @@ export class FormFieldComponent implements ControlValueAccessor {
   @Output() changed = new EventEmitter<any>();
   value: any;
   isDisabled = false;
-  private onChange: Function = () => {
-  };
-  private onTouched: Function = () => {
-  };
+  private onChange: Function = () => {};
+  private onTouched: Function = () => {};
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -41,8 +50,7 @@ export class FormFieldComponent implements ControlValueAccessor {
     this.value = value;
   }
 
-  setDisabledState(isDisabled: boolean): void {
-  }
+  setDisabledState(isDisabled: boolean): void {}
 
   onKeyup(event: KeyboardEvent): void {
     this.value = (event.target as HTMLInputElement).value;
@@ -55,12 +63,13 @@ export class FormFieldComponent implements ControlValueAccessor {
   }
 
   get errorKey(): string {
-    const result = (this.control.errors && Object.keys(this.control.errors)[0]) ?? '';
-    console.log('error result:', result, 'errors:', this.control.errors);
-    return result;
+    return (this.control.errors && Object.keys(this.control.errors)[0]) ?? '';
   }
 
   hasError(): boolean {
-    return (this.control.errors && (this.control.dirty || this.control.touched)) ?? false;
+    return (
+      (this.control.errors && (this.control.dirty || this.control.touched)) ??
+      false
+    );
   }
 }
